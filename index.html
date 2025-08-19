@@ -814,7 +814,12 @@
             // 管理员面板事件
             document.getElementById('close-admin-panel').addEventListener('click', closeAdminPanel);
             document.getElementById('logout-btn').addEventListener('click', handleLogout);
-            document.getElementById('add-character-btn').addEventListener('click', prepareAddNewCharacter);
+            
+            // 修复：添加新人物按钮事件监听
+            document.getElementById('add-character-btn').addEventListener('click', function() {
+                prepareAddNewCharacter();
+            });
+            
             document.querySelectorAll('.admin-faction-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const faction = this.getAttribute('data-faction');
@@ -1292,7 +1297,7 @@
             modalContent.classList.remove('scale-100', 'opacity-100');
             modalContent.classList.add('scale-95', 'opacity-0');
             
-            // 动画结束后隐藏
+            // 动画结束后隐藏模态框
             setTimeout(() => {
                 modal.style.display = 'none';
                 document.getElementById('login-error').classList.add('hidden');
