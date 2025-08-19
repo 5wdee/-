@@ -1,0 +1,265 @@
+{
+  "characters": {
+    "defender": [
+      {
+        "id": 1,
+        "name": "test",
+        "title": "统领",
+        "image": "https://picsum.photos/id/1005/600/400",
+        "description": "test",
+        "tags": [
+          "剑法",
+          "谋略",
+          "领导力"
+        ]
+      },
+      {
+        "id": 2,
+        "name": "苏沐雪",
+        "title": "谋士",
+        "image": "https://picsum.photos/id/1012/600/400",
+        "description": "镇守使首席谋士，神机妙算，足不出户便知天下事，为镇守使献无数良策。",
+        "tags": [
+          "智谋",
+          "计策",
+          "洞察"
+        ]
+      },
+      {
+        "id": 3,
+        "name": "赵猛",
+        "title": "先锋",
+        "image": "https://picsum.photos/id/1074/600/400",
+        "description": "镇守使先锋大将，力能扛鼎，勇猛无双，每逢战事必身先士卒，所向披靡。",
+        "tags": [
+          "力量",
+          "勇猛",
+          "忠诚"
+        ]
+      },
+      {
+        "id": 4,
+        "name": "林月瑶",
+        "title": "医官",
+        "image": "https://picsum.photos/id/1025/600/400",
+        "description": "镇守使首席医官，医术高超，能妙手回春，曾救活无数重伤将士。",
+        "tags": [
+          "医术",
+          "慈悲",
+          "冷静"
+        ]
+      },
+      {
+        "id": 5,
+        "name": "陈风",
+        "title": "斥候",
+        "image": "https://picsum.photos/id/1062/600/400",
+        "description": "镇守使斥候营统领，轻功卓绝，侦查能力极强，能在千里之外获取情报。",
+        "tags": [
+          "轻功",
+          "侦查",
+          "隐匿"
+        ]
+      }
+    ],
+    "rebel": [
+      {
+        "id": 6,
+        "name": "萧天邪",
+        "title": "盟主",
+        "image": "https://picsum.photos/id/1027/600/400",
+        "description": "乱臣贼子盟主，武功盖世，野心勃勃，欲颠覆现有秩序，建立新的天下格局。",
+        "tags": [
+          "野心",
+          "武功",
+          "权谋"
+        ],
+        "battleRecords": [
+          {
+            "id": 1,
+            "title": "黑风岭之战",
+            "date": "天启三年三月",
+            "description": "萧天邪率五千叛军进攻黑风岭，李青云仅带三百精兵迎敌，以奇计破敌，萧天邪大败而逃，身中三箭，险些被俘。",
+            "images": [
+              "https://picsum.photos/id/1040/800/500",
+              "https://picsum.photos/id/1059/800/500",
+              "https://picsum.photos/id/1063/800/500"
+            ],
+            "defenderHero": "李青云"
+          },
+          {
+            "id": 2,
+            "title": "京城围困战",
+            "date": "天启四年冬",
+            "description": "萧天邪联合各路叛军围困京城，苏沐雪献离间计，使叛军内部互相猜忌，李青云趁机内外夹击，叛军大败，萧天邪仅带数十骑逃脱。",
+            "images": [
+              "https://picsum.photos/id/1076/800/500",
+              "https://picsum.photos/id/1079/800/500"
+            ],
+            "defenderHero": "李青云、苏沐雪"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "夜无影",
+        "title": "杀手",
+        "image": "https://picsum.photos/id/1083/600/400",
+        "description": "江湖第一杀手，来无影去无踪，杀人如麻，从无失手，为乱臣贼子铲除了许多障碍。",
+        "tags": [
+          "暗杀",
+          "隐匿",
+          "冷酷"
+        ],
+        "battleRecords": [
+          {
+            "id": 3,
+            "title": "刺驾失败",
+            "date": "天启二年秋",
+            "description": "夜无影受萧天邪指使，潜入皇宫刺杀皇上，被陈风识破行踪，展开一场惊心动魄的追逐，最终被陈风击伤，狼狈逃脱。",
+            "images": [
+              "https://picsum.photos/id/1058/800/500",
+              "https://picsum.photos/id/1060/800/500"
+            ],
+            "defenderHero": "陈风"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "慕容嫣然",
+        "title": "毒师",
+        "image": "https://picsum.photos/id/1062/600/400",
+        "description": "精通各种毒术，貌美如花却心如蛇蝎，能杀人于无形，令人闻风丧胆。",
+        "tags": [
+          "毒术",
+          "美貌",
+          "心机"
+        ],
+        "battleRecords": [
+          {
+            "id": 4,
+            "title": "毒计被破",
+            "date": "天启三年夏",
+            "description": "慕容嫣然在镇守使军营水源中下毒，企图削弱镇守使战力，被林月瑶识破并研制出解药，反将一军，使叛军中毒者众多。",
+            "images": [
+              "https://picsum.photos/id/1067/800/500",
+              "https://picsum.photos/id/1068/800/500"
+            ],
+            "defenderHero": "林月瑶"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "雷霸天",
+        "title": "堂主",
+        "image": "https://picsum.photos/id/1074/600/400",
+        "description": "黑风堂堂主，力大无穷，性格残暴，烧杀抢掠无所不为，手下喽啰众多。",
+        "tags": [
+          "力量",
+          "残暴",
+          "势力"
+        ],
+        "battleRecords": [
+          {
+            "id": 5,
+            "title": "黑风堂覆灭",
+            "date": "天启元年冬",
+            "description": "雷霸天率黑风堂众在边境烧杀抢掠，赵猛奉命征讨，两人大战三百回合，赵猛最终将雷霸天击败，黑风堂覆灭。",
+            "images": [
+              "https://picsum.photos/id/1071/800/500",
+              "https://picsum.photos/id/1073/800/500"
+            ],
+            "defenderHero": "赵猛"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "上官诡",
+        "title": "军师",
+        "image": "https://picsum.photos/id/1066/600/400",
+        "description": "乱臣贼子首席军师，诡计多端，擅长挑拨离间，制造混乱，从中渔利。",
+        "tags": [
+          "诡计",
+          "煽动",
+          "算计"
+        ],
+        "battleRecords": [
+          {
+            "id": 6,
+            "title": "计败于计",
+            "date": "天启四年春",
+            "description": "上官诡设下连环计，企图诱捕李青云，反被苏沐雪识破，将计就计，使叛军损失惨重，上官诡仅以身免。",
+            "images": [
+              "https://picsum.photos/id/1080/800/500",
+              "https://picsum.photos/id/1082/800/500"
+            ],
+            "defenderHero": "苏沐雪"
+          }
+        ]
+      }
+    ]
+  },
+  "factions": {
+    "defender": {
+      "title": "镇守使阵营",
+      "description": "镇守使乃维护天下秩序之栋梁，以守护苍生为己任，秉承正义之道，镇守四方疆土，抵御内外之乱。他们坚守正道，恪守誓言，以铁腕手段惩治邪恶，以仁德之心安抚百姓。",
+      "joinTitle": "加入镇守使条件",
+      "joinConditions": [
+        {
+          "icon": "fa-heart",
+          "title": "心怀正义",
+          "desc": "需有济世救民之心，以维护天下苍生为己任，不谋私利，不徇私情。"
+        },
+        {
+          "icon": "fa-balance-scale",
+          "title": "品行端正",
+          "desc": "需品行端正，无不良记录，恪守道德准则，不为非作歹，不欺凌弱小。"
+        },
+        {
+          "icon": "fa-shield",
+          "title": "有一技之长",
+          "desc": "需有一技之长，无论是武功、智谋、医术还是其他特殊技能，能为镇守使贡献力量。"
+        },
+        {
+          "icon": "fa-handshake-o",
+          "title": "宣誓效忠",
+          "desc": "需宣誓效忠镇守使，遵守镇守使规章，服从命令，即使牺牲生命也在所不辞。"
+        }
+      ],
+      "applyBtnText": "申请加入"
+    },
+    "rebel": {
+      "title": "乱臣贼子阵营",
+      "description": "乱臣贼子乃挑战现有秩序之势力，他们或因不满现状，或因野心驱使，意图颠覆现有格局。他们行事不拘一格，无视常规礼法，以实力为尊，虽被称为贼子，却也有自己的信念与追求。",
+      "joinTitle": "加入乱臣贼子条件",
+      "joinConditions": [
+        {
+          "icon": "fa-bolt",
+          "title": "胆识过人",
+          "desc": "需有敢于挑战权威的勇气，不拘泥于世俗礼教，敢于打破常规。"
+        },
+        {
+          "icon": "fa-diamond",
+          "title": "实力至上",
+          "desc": "需有过人实力，无论是武功、智谋或其他特殊能力，能在乱世中立足。"
+        },
+        {
+          "icon": "fa-bomb",
+          "title": "狠辣无情",
+          "desc": "需心狠手辣，行事果断，不妇人之仁，为达目的可以不择手段。"
+        },
+        {
+          "icon": "fa-handshake-o",
+          "title": "绝对忠诚",
+          "desc": "需对盟主绝对忠诚，遵守阵营规矩，服从命令，共同对抗镇守使。"
+        }
+      ],
+      "applyBtnText": "投奔我们"
+    }
+  },
+  "lastUpdated": "2025-08-19T21:52:21.676Z",
+  "version": "1.0"
+}
