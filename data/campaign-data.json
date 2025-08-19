@@ -15,10 +15,10 @@
       },
       {
         "id": 2,
-        "name": "苏沐雪",
+        "name": "spg",
         "title": "谋士",
         "image": "https://picsum.photos/id/1012/600/400",
-        "description": "镇守使首席谋士，神机妙算，足不出户便知天下事，为镇守使献无数良策。",
+        "description": "spg",
         "tags": [
           "智谋",
           "计策",
@@ -260,6 +260,6 @@
       "applyBtnText": "投奔我们"
     }
   },
-  "lastUpdated": "2025-08-19T21:52:21.676Z",
+  "lastUpdated": "2025-08-19T22:33:41.002Z",
   "version": "1.0"
 }
