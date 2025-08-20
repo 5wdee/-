@@ -65,7 +65,7 @@
         "id": 12,
         "name": "陈浩南",
         "title": "镇守使",
-        "description": "镇守使成员之一",
+        "description": "镇守使成员之一，为镇守集团作战时损失了一个QQ账号。",
         "tags": [
           "威慑，武力"
         ],
@@ -274,6 +274,6 @@
       "applyBtnText": "投奔我们"
     }
   },
-  "lastUpdated": "2025-08-20T02:29:21.585Z",
+  "lastUpdated": "2025-08-20T02:31:36.113Z",
   "version": "1.0"
 }
