@@ -49,7 +49,7 @@
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             }
             .bg-texture {
-                background-image: url('https://picsum.photos/id/307/1000/1000');
+                background-image: url('https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
                 background-size: cover;
                 background-attachment: fixed;
                 background-position: center;
@@ -167,9 +167,8 @@
                 </div>
                 
                 <!-- 分页指示器 -->
-                <div class="flex justify-center mt-8 space-x-2">
-                    <button class="page-indicator w-3 h-3 rounded-full bg-defender-primary transition-all duration-300" data-page="0"></button>
-                    <button class="page-indicator w-3 h-3 rounded-full bg-gray-300 transition-all duration-300" data-page="1"></button>
+                <div id="pagination-indicators" class="flex justify-center mt-8 space-x-2">
+                    <!-- 分页指示器会通过JavaScript动态生成 -->
                 </div>
             </section>
             
@@ -428,7 +427,7 @@
                             <div class="flex flex-col md:flex-row gap-6">
                                 <div class="w-full md:w-1/3">
                                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-500 transition-colors">
-                                        <img id="character-image-preview" src="https://picsum.photos/id/1005/300/300" alt="人物肖像预览" class="w-full h-48 object-cover rounded mb-2">
+                                        <img id="character-image-preview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="人物肖像预览" class="w-full h-48 object-cover rounded mb-2">
                                         <p class="text-sm text-gray-500 mb-2">当前图片</p>
                                         <button type="button" id="remove-image-btn" class="text-sm text-red-500 hover:text-red-700">
                                             <i class="fa fa-trash mr-1"></i> 移除图片
@@ -546,7 +545,8 @@
     <script>
         // 当前页码、阵营和模块
         let currentPage = 0;
-        const totalPages = 2; // 总页数
+        let totalPages = 1; // 总页数，初始为1，将根据人物数量动态计算
+        const charactersPerPage = 3; // 每页显示3个角色
         let currentFaction = 'defender'; // 默认阵营
         let currentModule = 'characters'; // 默认模块：人物展示
         let isAdminLoggedIn = false; // 管理员登录状态
@@ -592,7 +592,8 @@
         async function loadDataFromGitHub() {
             try {
                 console.log('正在从GitHub加载数据...');
-                const response = await fetch(GITHUB_DATA_URL);
+                // 添加时间戳防止缓存
+                const response = await fetch(GITHUB_DATA_URL + '?t=' + new Date().getTime());
                 
                 if (!response.ok) {
                     throw new Error(`HTTP错误! 状态: ${response.status}`);
@@ -603,6 +604,7 @@
                 
                 // 保存到本地存储
                 localStorage.setItem('charactersData', JSON.stringify(charactersData));
+                localStorage.setItem('charactersDataTimestamp', new Date().getTime().toString());
                 
                 console.log('成功从GitHub加载数据');
                 return true;
@@ -629,7 +631,7 @@
                             id: 1,
                             name: "李青云",
                             title: "统领",
-                            image: "https://picsum.photos/id/1005/600/400",
+                            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
                             description: "镇守使最高统领，剑法卓绝，智勇双全，曾单枪匹马平定边境之乱。",
                             tags: ["剑法", "谋略", "领导力"]
                         },
@@ -637,7 +639,7 @@
                             id: 2,
                             name: "苏沐雪",
                             title: "谋士",
-                            image: "https://picsum.photos/id/1012/600/400",
+                            image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
                             description: "镇守使首席谋士，神机妙算，足不出户便知天下事，为镇守使献无数良策。",
                             tags: ["智谋", "计策", "洞察"]
                         }
@@ -647,7 +649,7 @@
                             id: 3,
                             name: "萧天邪",
                             title: "盟主",
-                            image: "https://picsum.photos/id/1027/600/400",
+                            image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
                             description: "乱臣贼子盟主，武功盖世，野心勃勃，欲颠覆现有秩序，建立新的天下格局。",
                             tags: ["野心", "武功", "权谋"],
                             battleRecords: [
@@ -657,8 +659,8 @@
                                     date: "天启三年三月",
                                     description: "萧天邪率五千叛军进攻黑风岭，李青云仅带三百精兵迎敌，以奇计破敌，萧天邪大败而逃，身中三箭，险些被俘。",
                                     images: [
-                                        "https://picsum.photos/id/1040/800/500",
-                                        "https://picsum.photos/id/1059/800/500"
+                                        "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                                        "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                                     ],
                                     defenderHero: "李青云"
                                 }
@@ -674,6 +676,14 @@
         // 保存数据到localStorage
         function saveCharactersData() {
             localStorage.setItem('charactersData', JSON.stringify(charactersData));
+            localStorage.setItem('charactersDataTimestamp', new Date().getTime().toString());
+        }
+        
+        // 计算总页数
+        function calculateTotalPages() {
+            const characterCount = charactersData[currentFaction].length;
+            totalPages = Math.ceil(characterCount / charactersPerPage);
+            if (totalPages === 0) totalPages = 1; // 至少有一页
         }
         
         // 保存数据到文件功能
@@ -771,14 +781,6 @@
             // 分页按钮事件
             document.getElementById('prev-btn').addEventListener('click', showPrevPage);
             document.getElementById('next-btn').addEventListener('click', showNextPage);
-            
-            // 分页指示器事件
-            document.querySelectorAll('.page-indicator').forEach(indicator => {
-                indicator.addEventListener('click', function() {
-                    const page = parseInt(this.getAttribute('data-page'));
-                    showPage(page);
-                });
-            });
             
             // 申请加入按钮事件
             document.getElementById('apply-btn').addEventListener('click', openModal);
@@ -914,6 +916,7 @@
             document.getElementById('add-battle-image-btn').addEventListener('click', addBattleImageField);
             
             // 初始化页面显示
+            calculateTotalPages();
             renderCharacterCards();
             updateJoinConditions();
             renderDefeatedRebels();
@@ -929,6 +932,7 @@
             if (faction) {
                 currentFaction = faction;
                 currentPage = 0; // 切换阵营时重置到第一页
+                calculateTotalPages(); // 重新计算总页数
             }
             
             // 显示选中的模块，隐藏其他模块
@@ -973,7 +977,7 @@
                 card.setAttribute('data-id', rebel.id);
                 card.innerHTML = `
                     <div class="relative">
-                        <img src="${rebel.image}" alt="${rebel.name}肖像" class="w-full h-64 object-cover" onerror="this.src='https://picsum.photos/id/1000/600/400'; this.onerror=null;">
+                        <img src="${rebel.image}" alt="${rebel.name}肖像" class="w-full h-64 object-cover" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'; this.onerror=null;">
                         <div class="absolute top-4 right-4 bg-rebel-secondary text-white text-sm py-1 px-3 rounded-full">
                             ${rebel.title}
                         </div>
@@ -1020,7 +1024,7 @@
             let detailsHtml = `
                 <div class="mb-8">
                     <div class="flex items-center mb-4">
-                        <img src="${rebel.image}" alt="${rebel.name}肖像" class="w-20 h-20 rounded-full object-cover mr-4 border-2 border-rebel-primary" onerror="this.src='https://picsum.photos/id/1000/200/200'; this.onerror=null;">
+                        <img src="${rebel.image}" alt="${rebel.name}肖像" class="w-20 h-20 rounded-full object-cover mr-4 border-2 border-rebel-primary" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'; this.onerror=null;">
                         <div>
                             <h4 class="text-2xl font-bold text-rebel-primary">${rebel.name}</h4>
                             <p class="text-gray-600">${rebel.title} | ${rebel.tags.join(' · ')}</p>
@@ -1046,7 +1050,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-${record.images.length > 1 ? 2 : 1} gap-4 mb-2">
                             ${record.images.map(img => `
                                 <div class="rounded-lg overflow-hidden shadow">
-                                    <img src="${img}" alt="${record.title}战景" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://picsum.photos/id/1000/800/500'; this.onerror=null;">
+                                    <img src="${img}" alt="${record.title}战景" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'; this.onerror=null;">
                                 </div>
                             `).join('')}
                         </div>
@@ -1112,8 +1116,8 @@
             container.innerHTML = '';
             
             // 每页显示3个角色
-            const startIndex = currentPage * 3;
-            const endIndex = Math.min(startIndex + 3, charactersData[currentFaction].length);
+            const startIndex = currentPage * charactersPerPage;
+            const endIndex = Math.min(startIndex + charactersPerPage, charactersData[currentFaction].length);
             
             for (let i = startIndex; i < endIndex; i++) {
                 const character = charactersData[currentFaction][i];
@@ -1122,7 +1126,7 @@
                 card.setAttribute('data-index', i);
                 card.innerHTML = `
                     <div class="relative">
-                        <img src="${character.image}" alt="${character.name}肖像" class="w-full h-64 object-cover" onerror="this.src='https://picsum.photos/id/1000/600/400'; this.onerror=null;">
+                        <img src="${character.image}" alt="${character.name}肖像" class="w-full h-64 object-cover" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'; this.onerror=null;">
                         <div class="absolute top-4 right-4 bg-${currentFaction}-secondary text-white text-sm py-1 px-3 rounded-full">
                             ${character.title}
                         </div>
@@ -1139,6 +1143,9 @@
                 `;
                 container.appendChild(card);
             }
+            
+            // 更新分页指示器
+            updatePageIndicators();
         }
         
         // 显示上一页
@@ -1164,13 +1171,19 @@
         
         // 更新分页指示器
         function updatePageIndicators() {
-            document.querySelectorAll('.page-indicator').forEach((indicator, index) => {
-                if (index === currentPage) {
-                    indicator.className = `page-indicator w-3 h-3 rounded-full bg-${currentFaction}-primary transition-all duration-300`;
-                } else {
-                    indicator.className = `page-indicator w-3 h-3 rounded-full bg-gray-300 transition-all duration-300`;
-                }
-            });
+            const container = document.getElementById('pagination-indicators');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < totalPages; i++) {
+                const indicator = document.createElement('button');
+                indicator.className = `page-indicator w-3 h-3 rounded-full ${i === currentPage ? 'bg-' + currentFaction + '-primary' : 'bg-gray-300'} transition-all duration-300`;
+                indicator.setAttribute('data-page', i);
+                indicator.addEventListener('click', function() {
+                    const page = parseInt(this.getAttribute('data-page'));
+                    showPage(page);
+                });
+                container.appendChild(indicator);
+            }
         }
         
         // 更新导航按钮样式
@@ -1363,6 +1376,7 @@
             
             // 刷新当前模块的显示
             if (currentModule === 'characters') {
+                calculateTotalPages();
                 renderCharacterCards();
             } else if (currentModule === 'battles') {
                 renderDefeatedRebels();
@@ -1436,7 +1450,7 @@
             document.getElementById('character-description').value = '';
             document.getElementById('character-tags').value = '';
             
-            const defaultImage = 'https://picsum.photos/id/1005/300/300';
+            const defaultImage = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80';
             document.getElementById('character-image-preview').src = defaultImage;
             document.getElementById('character-image-url').value = defaultImage;
             document.getElementById('image-upload').value = '';
@@ -1495,6 +1509,9 @@
                         
                         // 保存数据
                         saveCharactersData();
+                        
+                        // 重新计算总页数
+                        calculateTotalPages();
                         
                         // 重新渲染人物列表
                         renderAdminCharactersList(faction);
@@ -1581,7 +1598,7 @@
                     <div class="flex space-x-2 overflow-x-auto pb-2">
                         ${record.images.map(img => `
                             <div class="flex-shrink-0 w-20 h-20 rounded overflow-hidden">
-                                <img src="${img}" alt="战役图片" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/id/1000/200/200'; this.onerror=null;">
+                                <img src="${img}" alt="战役图片" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'; this.onerror=null;">
                             </div>
                         `).join('')}
                     </div>
@@ -1772,7 +1789,7 @@
         
         // 移除图片
         function removeImage() {
-            const defaultImage = 'https://picsum.photos/id/1005/300/300';
+            const defaultImage = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80';
             document.getElementById('character-image-preview').src = defaultImage;
             document.getElementById('character-image-url').value = defaultImage;
             document.getElementById('image-upload').value = '';
@@ -1833,6 +1850,9 @@
             
             // 保存数据
             saveCharactersData();
+            
+            // 重新计算总页数
+            calculateTotalPages();
             
             // 重新渲染人物列表
             renderAdminCharactersList(faction);
