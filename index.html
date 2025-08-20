@@ -150,7 +150,7 @@
             <!-- 人物展示部分 -->
             <section id="characters-section" class="mb-16 transition-all duration-500">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-ancient font-bold text-defender-primary">镇守使成员</h3>
+                    <h3 id="characters-title" class="text-2xl font-ancient font-bold text-defender-primary">镇守使成员</h3>
                     <div class="flex space-x-2">
                         <button id="prev-btn" class="p-2 rounded-full bg-defender-primary/10 text-defender-primary hover:bg-defender-primary hover:text-white transition-all duration-300">
                             <i class="fa fa-chevron-left"></i>
@@ -578,12 +578,7 @@
                 title: "乱臣贼子阵营",
                 description: "乱臣贼子乃挑战现有秩序之势力，他们或因不满现状，或因野心驱使，意图颠覆现有格局。他们行事不拘一格，无视常规礼法，以实力为尊，虽被称为贼子，却也有自己的信念与追求。",
                 joinTitle: "加入乱臣贼子条件",
-                joinConditions: [
-                    { icon: "fa-bolt", title: "胆识过人", desc: "需有敢于挑战权威的勇气，不拘泥于世俗礼教，敢于打破常规。" },
-                    { icon: "fa-diamond", title: "实力至上", desc: "需有过人实力，无论是武功、智谋或其他特殊能力，能在乱世中立足。" },
-                    { icon: "fa-bomb", title: "狠辣无情", desc: "需心狠手辣，行事果断，不妇人之仁，为达目的可以不择手段。" },
-                    { icon: "fa-handshake-o", title: "绝对忠诚", desc: "需对盟主绝对忠诚，遵守阵营规矩，服从命令，共同对抗镇守使。" }
-                ],
+                joinConditions: [],
                 applyBtnText: "投奔我们"
             }
         };
@@ -649,7 +644,7 @@
                             id: 3,
                             name: "萧天邪",
                             title: "盟主",
-                            image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                            image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
                             description: "乱臣贼子盟主，武功盖世，野心勃勃，欲颠覆现有秩序，建立新的天下格局。",
                             tags: ["野心", "武功", "权谋"],
                             battleRecords: [
@@ -943,10 +938,21 @@
                 // 更新人物模块内容
                 document.getElementById('faction-title').textContent = factionsData[currentFaction].title;
                 document.getElementById('faction-description').textContent = factionsData[currentFaction].description;
-                document.querySelector('#join-conditions h3').textContent = factionsData[currentFaction].joinTitle;
-                document.getElementById('apply-btn').textContent = factionsData[currentFaction].applyBtnText;
                 
-                updateJoinConditions();
+                // 更新标题显示
+                document.getElementById('characters-title').textContent = 
+                    currentFaction === 'defender' ? '镇守使成员' : '乱臣贼子名单';
+                
+                // 只有在镇守使阵营时才显示加入条件
+                if (currentFaction === 'defender') {
+                    document.getElementById('join-conditions').classList.remove('hidden');
+                    document.querySelector('#join-conditions h3').textContent = factionsData[currentFaction].joinTitle;
+                    document.getElementById('apply-btn').textContent = factionsData[currentFaction].applyBtnText;
+                    updateJoinConditions();
+                } else {
+                    document.getElementById('join-conditions').classList.add('hidden');
+                }
+                
                 renderCharacterCards();
                 updatePageIndicators();
             } else if (module === 'battles') {
@@ -1094,20 +1100,23 @@
             const conditionsContainer = document.querySelector('#join-conditions .grid');
             conditionsContainer.innerHTML = '';
             
-            factionsData[currentFaction].joinConditions.forEach(condition => {
-                const conditionElement = document.createElement('div');
-                conditionElement.className = 'flex items-start';
-                conditionElement.innerHTML = `
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-${currentFaction}-primary/10 flex items-center justify-center text-${currentFaction}-primary mr-4">
-                        <i class="fa ${condition.icon}"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">${condition.title}</h4>
-                        <p class="text-gray-600">${condition.desc}</p>
-                    </div>
-                `;
-                conditionsContainer.appendChild(conditionElement);
-            });
+            // 只在镇守使阵营显示加入条件
+            if (currentFaction === 'defender') {
+                factionsData[currentFaction].joinConditions.forEach(condition => {
+                    const conditionElement = document.createElement('div');
+                    conditionElement.className = 'flex items-start';
+                    conditionElement.innerHTML = `
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-${currentFaction}-primary/10 flex items-center justify-center text-${currentFaction}-primary mr-4">
+                            <i class="fa ${condition.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">${condition.title}</h4>
+                            <p class="text-gray-600">${condition.desc}</p>
+                        </div>
+                    `;
+                    conditionsContainer.appendChild(conditionElement);
+                });
+            }
         }
         
         // 渲染人物卡片
@@ -1241,8 +1250,12 @@
                 // 更新标题颜色
                 document.getElementById('faction-title').className = `text-3xl md:text-4xl font-ancient font-bold mb-4 text-${currentFaction}-primary`;
                 document.querySelector('#characters-section h3').className = `text-2xl font-ancient font-bold text-${currentFaction}-primary`;
-                document.querySelector('#join-conditions h3').className = `text-2xl md:text-3xl font-ancient font-bold mb-6 text-${currentFaction}-primary`;
-                document.getElementById('apply-btn').className = `inline-block bg-${currentFaction}-primary hover:bg-${currentFaction}-dark text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105`;
+                
+                // 只在镇守使阵营显示加入条件标题
+                if (currentFaction === 'defender') {
+                    document.querySelector('#join-conditions h3').className = `text-2xl md:text-3xl font-ancient font-bold mb-6 text-${currentFaction}-primary`;
+                    document.getElementById('apply-btn').className = `inline-block bg-${currentFaction}-primary hover:bg-${currentFaction}-dark text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105`;
+                }
             }
         }
         
