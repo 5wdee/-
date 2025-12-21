@@ -168,6 +168,17 @@
             "defenderHero": "记不清"
           }
         ]
+      },
+      {
+        "id": 16,
+        "name": "3613409342",
+        "title": "乱臣贼子",
+        "description": "未知",
+        "tags": [
+          "未知"
+        ],
+        "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80",
+        "battleRecords": []
       }
     ]
   },
@@ -229,6 +240,6 @@
       "applyBtnText": "投奔我们"
     }
   },
-  "lastUpdated": "2025-08-21T00:05:41.247Z",
+  "lastUpdated": "2025-12-21T13:18:17.623Z",
   "version": "1.0"
 }
